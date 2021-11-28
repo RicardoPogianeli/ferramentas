@@ -1,3 +1,13 @@
+<?php
+include("conexao.php");
+
+$consulta = "SELECT * FROM controleemprestimo";
+$consult_emprestimo = mysqli_query($conn, $consulta);
+//$resultado_usuario = mysqli_query($conn, $result_usuarios);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,22 +35,36 @@
         </div>
         <div class="tabela">
             <table border="1">
-                <caption class="nometabela">Tabela Itens Já Emprestados</caption>
-                <button class="btnCadastrarItens">Cadastar item</button>
-                <button class="btnEmprestarItens">Emprestar Item</button>
+                <caption class="nometabela">Tabela de Controle</caption>
+                <a href="emprestar.php"><button class="btnCadastrarItens">Cadastar Novo Item</button></a>
                 <tr classe="colunas">
-                    <td>Item</td>
-                    <td>Data Emprestimo</td>
-                    <td>Previsão de entrega</td>
-                    <td>Data Entrega</td>
-                    <td>Status</td>
+                    <td>Id</td>
+                    <td>Nome do Item</td>
+                    <td>Nome do Fornecedor</td>
+                    <td>Nome do Receptor</td>
+                    <td>Data do Emprestimo</td>
+                    <td>Data da Davolção</td>
                 </tr>
+
+                <?php while($dado = $consult_emprestimo ->fetch_array()){ ?>
+
+                <tr>
+                    <td> <?php echo $dado["numEmprestimo"];?></td>
+                    <td> <?php echo $dado["nomeItem"];?></td>
+                    <td> <?php echo $dado["nomeFornecedor"];?></td>
+                    <td> <?php echo $dado["nomeReceptor"];?></td>
+                    <td> <?php echo $dado["dataEmprestimo"];?></td>
+                    <td> <?php echo $dado["dataDevolucao"];?></td>
+                </tr>
+
+                <?php }?>
+
             </table>
         </div>
        
     </main>
     <footer class="rodape">
-        Ferramentas & Emprestimo <?=date('Y');?>
+        Ferramentas & Emprestimo <br><?=date('D/M/Y')?>;
     </footer>
     
 </body>
